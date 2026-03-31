@@ -1,0 +1,25 @@
+class Solution {
+public:
+    int longestConsecutive(vector<int>& nums) {
+        if (nums.size() == 1){
+            return 1;
+        }
+        std::unordered_set<int> numSet(nums.begin(),nums.end());
+        //4 2 10 5 3 20
+        int max = 0;
+        int start = 0;
+        int freq = 0;
+        for (const auto it : numSet){
+            if (!numSet.count(it - 1)) {
+                start = it;
+                freq = 1;
+            }
+            while (numSet.count(start + 1)){
+                start++;
+                freq++;
+                max = std::max(freq,max);
+            }
+        }
+        return max;
+    }
+};
